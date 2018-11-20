@@ -28,7 +28,7 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(
     REQUIRES
         boost/1.68.0@conan/stable
-        gtest/1.8.0@conan/stable
+        gtest/1.8.1@bincrafters/stable
     BASIC_SETUP
     BUILD missing
     )
@@ -42,7 +42,7 @@ add_subdirectory(src/resmgr)
 #add_subdirectory(src/resmgr_v2)
 
 # common code
-add_subdirectory(../common/src/networking)
+add_subdirectory(../common common_build)
 
 
 # usefull targets for static and dynamic linking

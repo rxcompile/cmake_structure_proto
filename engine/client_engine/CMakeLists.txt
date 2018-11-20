@@ -7,7 +7,7 @@ project(enCore VERSION 1.0.0)
 option(USE_NVAPI "Use NVIDIA sdk for frame analysis" OFF)
 option(USE_TCMALLOC "Integrate tcmalloc for all allocation inside engine" ON)
 option(ENABLE_TEXTURE_STREAMING "Stream in hi-res textures from disk" ON)
-option(ENABLE_GEOMETRY_STREAMING "Strean in hi-res models from disk" ON)
+option(ENABLE_GEOMETRY_STREAMING "Stream in hi-res models from disk" ON)
 option(ENABLE_REFLECTION "Add reflection info inside engine classes" OFF) # see "reflection" lib
 option(ENABLE_UNIT_TESTING "Unit test engine" OFF)
 
@@ -39,4 +39,18 @@ conan_cmake_run(
 # Keep this in alphabetic order for merge-tolerance
 add_subdirectory(src/cstdmf)
 add_subdirectory(src/resmgr)
-# add_subdirectory(src/resmgr_v2)
+#add_subdirectory(src/resmgr_v2)
+
+# common code
+add_subdirectory(../common/src/networking)
+
+
+# usefull targets for static and dynamic linking
+add_library(encore_engine INTERFACE)
+target_link_libraries(encore_engine INTERFACE
+    WG::cstdmf
+    WG::resmgr
+    WG::networking
+    )
+add_library(WG::encore_engine ALIAS encore_engine)
+# dynamic linking target tbd

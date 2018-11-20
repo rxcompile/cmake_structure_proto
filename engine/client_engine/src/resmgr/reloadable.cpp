@@ -1,0 +1,1 @@
+#include "resmgr/reloadable.hpp"

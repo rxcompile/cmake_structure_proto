@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(enCore VERSION 1.0.0)
 
 # options
@@ -25,11 +25,11 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
                 "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_check()
+conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 conan_cmake_run(
-    REQUIRES
-        boost/1.68.0@conan/stable
-        gtest/1.8.1@bincrafters/stable
-    BASIC_SETUP
+    CONANFILE conanfile.py
+    BASIC_SETUP CMAKE_TARGETS
     BUILD missing
     )
 
@@ -54,3 +54,4 @@ target_link_libraries(encore_engine INTERFACE
     )
 add_library(WG::encore_engine ALIAS encore_engine)
 # dynamic linking target tbd
+# options defined at the top should rule which libraries will be included inside dll[s]

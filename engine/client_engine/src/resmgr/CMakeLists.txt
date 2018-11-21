@@ -35,22 +35,17 @@ target_compile_features(resmgr PUBLIC cxx_std_17)
 # vanilla style of dependency management through find_package
 # it has to have right CMAKE_MODULE_PATH to have all FindXXX.cmake scripts
 # this scripts has to define appropriate targets (Boost::Boost for this example)
-find_package(Boost 1.68 REQUIRED)
+#find_package(Boost 1.68 REQUIRED)
 # linking is most crucial part of CMake target system to work
 # all features and PUBLIC (transitive) dependencies are added to this library
 # so dont abuse you build by PUBLICaly linking all of the things
 # always think why you need each library for
-target_link_libraries(resmgr
-    PUBLIC
-        WG::cstdmf # this is right way of linking your libraries, do not use namespace-less lib
-    PRIVATE
-        Boost::boost # this library comes from package manager, so it has this namespace
-    )
-# We need to add namespaced alias target to not confuse CMake linking
-# without namespace cmake will try to find our library inside LD= and other places
-# it may be very confusing for cmake and too much sloooow...
-# so always link with namespaced modern targets (like WOT::cstdmf up there)
-add_library(WG::resmgr ALIAS resmgr)
+#target_link_libraries(resmgr
+#    PUBLIC
+#        WG::cstdmf # this is right way of linking your libraries, do not use namespace-less lib
+#    PRIVATE
+#        Boost::boost
+#    )
 
 ### ALTERNATIVE DEPENDENCIES ###
 # alternative style is to use conans basic_setup(targets)
@@ -59,12 +54,18 @@ add_library(WG::resmgr ALIAS resmgr)
 # this will not work nice with INSTALL, because of find_dependency and stuff
 # so maybe we can do not INSTALL libs, this will remove so much boilerplate
 # but maybe will not play nice in long-term maintance
-#target_link_libraries(resmgr
-#    PUBLIC
-#        WG::cstdmf
-#    PRIVATE:
-#        CONAN_PKG::boost
-#   )
+target_link_libraries(resmgr
+    PUBLIC
+        WG::cstdmf # this is right way of linking your libraries, do not use namespace-less lib
+    PRIVATE
+        CONAN_PKG::boost # this library comes from package manager, so it has this namespace
+   )
+
+# We need to add namespaced alias target to not confuse CMake linking
+# without namespace cmake will try to find our library inside LD= and other places
+# it may be very confusing for cmake and too much sloooow...
+# so always link with namespaced modern targets (like WOT::cstdmf up there)
+add_library(WG::resmgr ALIAS resmgr)
 
 ### TESTING ###
 if(ENABLE_UNIT_TESTING)

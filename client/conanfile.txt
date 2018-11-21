@@ -1,0 +1,7 @@
+[requires]
+encore/1.0.0@company/stable
+fmt/5.2.1@bincrafters/stable
+
+[generators]
+cmake
+

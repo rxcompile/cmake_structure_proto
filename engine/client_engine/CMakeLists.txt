@@ -41,17 +41,47 @@ add_subdirectory(src/cstdmf)
 add_subdirectory(src/resmgr)
 #add_subdirectory(src/resmgr_v2)
 
-# common code
-add_subdirectory(../common common_build)
-
-
 # usefull targets for static and dynamic linking
-add_library(encore_engine INTERFACE)
+file(WRITE ${CMAKE_BINARY_DIR}/encore_stub.cpp "")
+add_library(encore_engine_static STATIC ${CMAKE_BINARY_DIR}/encore_stub.cpp)
+target_link_libraries(encore_engine_static INTERFACE
+    WG::cstdmf
+    WG::resmgr
+    CONAN_PKG::networking
+    )
+if (WIN32)
+    set_target_properties(encore_engine_static PROPERTIES
+        LINK_FLAGS "/WHOLEARCHIVE"
+    )
+elseif (APPLE)
+    set_target_properties(encore_engine_static PROPERTIES
+        LINK_FLAGS "-Wl,-all_load"
+    )
+else ()
+    set_target_properties(encore_engine_static PROPERTIES
+        LINK_FLAGS "-Wl,--whole-archive"
+    )
+endif ()
+#add_library(WG::encore_engine ALIAS encore_engine)
+# dynamic linking target
+
+add_library(encore_engine SHARED ${CMAKE_BINARY_DIR}/encore_stub.cpp)
 target_link_libraries(encore_engine INTERFACE
     WG::cstdmf
     WG::resmgr
-    WG::networking
+    CONAN_PKG::networking
     )
-add_library(WG::encore_engine ALIAS encore_engine)
-# dynamic linking target tbd
+if (WIN32)
+    set_target_properties(encore_engine PROPERTIES
+        LINK_FLAGS "/WHOLEARCHIVE"
+    )
+elseif (APPLE)
+    set_target_properties(encore_engine PROPERTIES
+        LINK_FLAGS "-Wl,-all_load"
+    )
+else ()
+    set_target_properties(encore_engine PROPERTIES
+        LINK_FLAGS "-Wl,--whole-archive"
+    )
+endif ()
 # options defined at the top should rule which libraries will be included inside dll[s]

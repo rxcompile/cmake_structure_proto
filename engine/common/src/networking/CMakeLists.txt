@@ -4,8 +4,6 @@ add_library(networking
 )
 add_library(WG::networking ALIAS networking)
 
-set_target_properties(networking PROPERTIES STATIC_LIBRARY_OPTIONS "/ignore:4221")
-set_target_properties(networking PROPERTIES LINK_OPTIONS "/ignore:4221")
 target_include_directories(networking PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

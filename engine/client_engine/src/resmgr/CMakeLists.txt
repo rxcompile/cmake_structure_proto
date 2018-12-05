@@ -11,9 +11,7 @@ add_library(resmgr
     reloadable.cpp
     include/resmgr/reloadable.hpp
     )
-# ignore "no public symbols" linker warning for static and dynamic linkage cases
-set_target_properties(resmgr PROPERTIES STATIC_LIBRARY_OPTIONS "/ignore:4221")
-set_target_properties(resmgr PROPERTIES LINK_OPTIONS "/ignore:4221")
+
 
 # this is public library so it defines include directory for self and others
 # most of the time you need only 1 include directory, all other include directories will come from linked targets

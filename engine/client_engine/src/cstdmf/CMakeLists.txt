@@ -4,8 +4,6 @@ add_library(cstdmf
 )
 add_library(WG::cstdmf ALIAS cstdmf)
 
-set_target_properties(cstdmf PROPERTIES STATIC_LIBRARY_OPTIONS "/ignore:4221")
-set_target_properties(cstdmf PROPERTIES LINK_OPTIONS "/ignore:4221")
 target_include_directories(cstdmf PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

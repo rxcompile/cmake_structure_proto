@@ -9,6 +9,7 @@
 #include <fstream>
 #include <filesystem>
 #include <unordered_map>
+#include <iostream>
 
 template <typename Implementation, typename T>
 class Factory : public Singleton<Implementation>

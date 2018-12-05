@@ -2,11 +2,14 @@
 
 #include "resmgr/factory.hpp"
 
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 #include <memory>
 #include <mutex>
 #include <fstream>
 #include <filesystem>
 #include <vector>
+#include <iostream>
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Resource management
@@ -45,7 +48,7 @@ protected:
 
         if (!file.is_open())
         {
-            std::cout << "ERROR: cannot open file!" << resourcepath;
+            std::cout << "ERROR: cannot open file!" << resourcepath << "\n";
             return false;
         }
         boost::archive::binary_iarchive ar { file };
@@ -60,7 +63,7 @@ protected:
 
         if (!file.is_open())
         {
-            std::cout << "ERROR: cannot open file!" << resourcepath;
+            std::cout << "ERROR: cannot open file!" << resourcepath << "\n";
             return false;
         }
         boost::archive::binary_oarchive ar { file };

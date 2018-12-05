@@ -12,7 +12,7 @@ conan_check()
 conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
 conan_cmake_run(
     CONANFILE conanfile.txt
-    BASIC_SETUP
+    BASIC_SETUP CMAKE_TARGETS
     BUILD missing
     )
 
@@ -20,5 +20,5 @@ add_executable(stub_client
     src/main.cpp
     )
 target_link_libraries(stub_client PRIVATE
-    WG::encore_engine
+    CONAN_PKG::encore
     )

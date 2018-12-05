@@ -31,7 +31,7 @@ conan_cmake_run(
     CONANFILE conanfile.py
     BASIC_SETUP CMAKE_TARGETS
     BUILD missing
-    )
+)
 
 # List all libraries
 # it is deliberate decision to not define pass-through CmakeLists.txt for "src" folder,
@@ -43,45 +43,24 @@ add_subdirectory(src/resmgr)
 
 # usefull targets for static and dynamic linking
 file(WRITE ${CMAKE_BINARY_DIR}/encore_stub.cpp "")
-add_library(encore_engine_static STATIC ${CMAKE_BINARY_DIR}/encore_stub.cpp)
-target_link_libraries(encore_engine_static INTERFACE
+add_library(encore_engine ${CMAKE_BINARY_DIR}/encore_stub.cpp)
+target_link_libraries(encore_engine
     WG::cstdmf
     WG::resmgr
-    CONAN_PKG::networking
-    )
-if (WIN32)
-    set_target_properties(encore_engine_static PROPERTIES
-        LINK_FLAGS "/WHOLEARCHIVE"
-    )
-elseif (APPLE)
-    set_target_properties(encore_engine_static PROPERTIES
-        LINK_FLAGS "-Wl,-all_load"
-    )
-else ()
-    set_target_properties(encore_engine_static PROPERTIES
-        LINK_FLAGS "-Wl,--whole-archive"
-    )
-endif ()
-#add_library(WG::encore_engine ALIAS encore_engine)
-# dynamic linking target
+    CONAN_PKG::encore_common
+)
 
-add_library(encore_engine SHARED ${CMAKE_BINARY_DIR}/encore_stub.cpp)
-target_link_libraries(encore_engine INTERFACE
-    WG::cstdmf
-    WG::resmgr
-    CONAN_PKG::networking
-    )
-if (WIN32)
+if(WIN32)
     set_target_properties(encore_engine PROPERTIES
         LINK_FLAGS "/WHOLEARCHIVE"
     )
-elseif (APPLE)
+elseif(APPLE)
     set_target_properties(encore_engine PROPERTIES
         LINK_FLAGS "-Wl,-all_load"
     )
-else ()
-    set_target_properties(encore_engine PROPERTIES
+else()
+    set_target_properties(encore_engine_static PROPERTIES
         LINK_FLAGS "-Wl,--whole-archive"
     )
-endif ()
+endif()
 # options defined at the top should rule which libraries will be included inside dll[s]

@@ -30,6 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Build related
 .vscode/
 .vs/
 build/
+
+# System junk
+.DS_STORE

@@ -1,0 +1,1 @@
+#include "cstdmf/singleton.hpp"

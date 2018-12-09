@@ -1,0 +1,8 @@
+# build and IDE folders
+build/
+install/
+.vscode/
+.vs/
+
+# Platform junk
+.DS_STORE

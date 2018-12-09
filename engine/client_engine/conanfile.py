@@ -59,3 +59,4 @@ class encoreConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.cppflags = ["-std=c++17"]

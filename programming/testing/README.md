@@ -1,0 +1,1 @@
+Here is some QA-specific projects for automation and usefull scripts can be placed.

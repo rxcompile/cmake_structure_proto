@@ -1,0 +1,1 @@
+Here goes pre-compiled binaries for server

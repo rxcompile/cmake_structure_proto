@@ -18,3 +18,6 @@ target_link_libraries(cstdmf
 if(ENABLE_UNIT_TESTING OR ENABLE_CSTDMF_UT)
     add_subdirectory(test)
 endif()
+
+# cotiring target
+cotire(WG::cstdmf)

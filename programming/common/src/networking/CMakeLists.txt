@@ -19,3 +19,6 @@ target_link_libraries(networking
 if(ENABLE_UNIT_TESTING OR ENABLE_NETWORKING_UT)
     add_subdirectory(test)
 endif()
+
+# cotiring target
+cotire(WG::networking)

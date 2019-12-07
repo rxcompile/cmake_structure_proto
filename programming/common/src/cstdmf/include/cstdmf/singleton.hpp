@@ -26,7 +26,7 @@ public:
             get_once_flag(),
             [](Args&& ... args)
         {
-            s_instance.reset(new T(std::forward<Args>(args) ...));
+            s_instance = std::make_unique<T>(std::forward<Args>(args) ...);
         }, std::forward<Args>(args) ...);
     }
 
